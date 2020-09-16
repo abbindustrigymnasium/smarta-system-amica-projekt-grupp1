@@ -1,8 +1,8 @@
 {
-  "name": "admin",
+  "name": "amica_projekt",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "admin_sida",
+  "productName": "Amica R&R",
   "author": "abbsimoga <43879969+abbsimoga@users.noreply.github.com>",
   "private": true,
   "scripts": {

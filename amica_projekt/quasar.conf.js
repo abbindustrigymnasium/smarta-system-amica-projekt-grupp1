@@ -115,8 +115,8 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'klientapplikation_sida',
-        short_name: 'klientapplikation_sida',
+        name: 'Amica R&R',
+        short_name: 'Amica R&R',
         description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',
@@ -182,7 +182,7 @@ module.exports = function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'klietapplikation'
+        appId: 'amica_projekt'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

@@ -1,4 +1,4 @@
-# admin_sida (admin)
+# Amica R&R (amica_projekt)
 
 A Quasar Framework app
 

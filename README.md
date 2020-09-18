@@ -9,5 +9,5 @@ Klient applikationen ska bestå av 3 olika sidor. Användaren ska först få ang
 
 ## Design mockup
 
-![Test Image 1](MicrosoftTeams-image (6).png)
+![Test Image 1](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/MicrosoftTeams-image%20(6).png)
 

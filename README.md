@@ -9,8 +9,5 @@ Klient applikationen ska bestå av 3 olika sidor. Användaren ska först få ang
 
 ## Design mockup
 
-![Test Image 1](3DTest.png)
-![Test Image 1](3DTest.png)
-![Test Image 1](3DTest.png)
-![Test Image 1](3DTest.png)
-![Test Image 1](3DTest.png)
+![Test Image 1](MicrosoftTeams-image (6).png)
+

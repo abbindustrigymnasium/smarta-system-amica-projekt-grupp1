@@ -8,3 +8,9 @@ Vår tanke var att låta kunder interagera med vår webapplikation genom att ha 
 Klient applikationen ska bestå av 3 olika sidor. Användaren ska först få ange vilken maträtt de åt under dagen och sedan ge den ett betyg. Sedan ska man få ge förslag på en maträtt de vill se i restaurangen i framtiden. Admin applikationen ska bestå av två olika sidor. En sida där de loggar in och en sida där de ser sammanställd och lättläst statistik.
 
 # Design mockup
+
+![Test Image 1](3DTest.png)
+![Test Image 1](3DTest.png)
+![Test Image 1](3DTest.png)
+![Test Image 1](3DTest.png)
+![Test Image 1](3DTest.png)

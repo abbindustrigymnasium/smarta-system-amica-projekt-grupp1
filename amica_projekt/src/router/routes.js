@@ -8,7 +8,7 @@ const routes = [
   // but you can also remove it
   {
     path: '/Admin',
-    component: () => import('pages/Admin.vue')
+    component: () => import('pages/AdminLogin.vue')
   },
   {
     path: '*',

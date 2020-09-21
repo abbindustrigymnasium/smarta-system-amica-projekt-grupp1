@@ -1,5 +1,5 @@
 # Amica projekt basgrupp 1
-### Linus Kasper, David Eckemark, Kethdan Phopat, Simon Ögaard Jozic, Gor Durgaryan
+### Linus Kasper, David Eckemark, Khetdan Phopat, Simon Ögaard Jozic, Gor Durgaryan
 
 ## Projekt 
 Vår idé är att maten på Amica ska vara så bra som möjligt. Därför ska vår applikation ha som syfte att samla in data för att ge återkoppling på vad kunderna tycker. På så sätt kan Amica få lättläst statistik på vad deras kunder tycker.

@@ -9,5 +9,10 @@ Klient applikationen ska bestå av 3 olika sidor. Användaren ska först få ang
 
 ## Design mockup
 
+### 1. Dagens rätter
+### 2. Betygsättning
+### 3. Ge förslag
+### 4. Admin
+
 ![Test Image 1](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/MicrosoftTeams-image%20(6).png)
 

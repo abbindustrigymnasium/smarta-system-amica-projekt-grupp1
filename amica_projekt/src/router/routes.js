@@ -11,6 +11,10 @@ const routes = [
     component: () => import('pages/AdminLogin.vue')
   },
   {
+    path: '/Request',
+    component: () => import('pages/Request.vue')
+  },
+  {
     path: '*',
     component: () => import('pages/Error404.vue')
   }

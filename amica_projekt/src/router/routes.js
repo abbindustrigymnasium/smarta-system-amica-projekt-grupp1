@@ -7,15 +7,8 @@ const routes = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/AdminLogin',
-    component: () => import('pages/AdminLogin.vue')
-  },
-  {
     path: '/Admin',
-    component: () => import('pages/Admin.vue')//,
-    // meta: {
-    //   requiresAuth: true,
-    // }
+    component: () => import('pages/AdminLogin.vue')
   },
   {
     path: '*',

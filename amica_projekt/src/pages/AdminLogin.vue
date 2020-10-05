@@ -13,41 +13,40 @@
               <p class="bg-secondaryColor">AAA</p>
               <p class="text-teal-14">AAA</p> -->
 
-              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="name" type="email" label="name"/>
-              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="password" type="password" label="password"/>
+              <q-input color="teal-14" label-color="teal-14" outlined v-model="email" type="email" label="email"/>
+              <q-input color="teal-14" label-color="teal-14" outlined v-model="password" type="password" label="password"/>
 
             </q-form>
           </q-card-section>
           <q-card-actions class="q-px-md">
-            <q-btn size="lg" class="full-width bg-deep-purple-4" label="Login" @click="login"/>
+            <q-btn size="lg" class="full-width bg-deep-purple-4" label="Login" />
           </q-card-actions>
-          <!-- <q-card-section class="text-center q-pa-none">
+          <q-card-section class="text-center q-pa-none">
             <p class="text-grey-6">Not reigistered? Created an Account</p>
-          </q-card-section> -->
+          </q-card-section>
         </q-card>
       </div>
 
-      <q-btn class="q-mt-xl bg-colorthingy" text-color="teal-14" unelevated to="/" label="Go Home" no-caps/>
+      <q-btn
+        class="q-mt-xl bg-colorthingy"
+        text-color="blue"
+        unelevated
+        to="/"
+        label="Go Home"
+        no-caps
+      />
 
     </div>
   </div>
 </template>
 
 <script>
-// import loginWithEmail from '../js/login.js'
-// import createUserWithEmail from '../js/login.js'
-
 export default {
   name: 'AdminLogin',
   data () {
     return {
-      name: '',
+      email: '',
       password: ''
-    }
-  },
-  methods: {
-    login: function () {
-      console.log(this.name + ' ' + this.password)
     }
   }
 }

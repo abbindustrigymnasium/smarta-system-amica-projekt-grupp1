@@ -39,16 +39,47 @@
       </q-dialog>
     </div>
     <div>
-      <q-dialog v-model="dialog2" class="flex flex-center">
-        <q-card>
-          <q-input v-model="searchModel" placeholder="Search"></q-input>
-        </q-card>
+      <q-dialog flat v-model="dialog2">
+        <div>
+          <q-card>
+            <div id="q-app" class="row">
+              <div>
+                <div>
+                  <q-select
+                    filled
+                    v-model="model"
+                    use-input
+                    hide-selected
+                    fill-input
+                    input-debounce="0"
+                    :options="options"
+                    @filter="filterFn"
+                    style="width: 250px"
+                    label = "Föreslå en maträtt"
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          No results
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </div>
+              </div>
+            </div>
+          </q-card>
+          <div class="row">
+            <q-btn label="Submit" type="submit" color="primary"/>
+          </div>
+        </div>
       </q-dialog>
     </div>
   </div>
 </template>
 
 <script>
+const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 export default {
   name: 'User',
   data () {
@@ -60,19 +91,35 @@ export default {
       mat3: 'pizza',
       mat4: 'soppa',
       clicked: '',
-      searchModel: ''
+      options: stringOptions,
+      ratingModel: 0,
+      ratingVal: 0, // Stjärnans värde
+      model: '',
+      modelVal: '' // Önskade maträttens värde
     }
   },
   methods: {
     toggleDialog: function (state, mat) {
       if (state === 1) {
+        this.ratingModel = 0
+        this.model = ''
         this.dialog1 = !this.dialog1
         this.clicked = mat
       }
       if (state === 2) {
         this.dialog1 = !this.dialog1
         this.dialog2 = !this.dialog2
+        this.modelVal = this.model
+        this.ratingVal = this.ratingModel
+        console.log(this.modelVal)
+        console.log(this.ratingVal)
       }
+    },
+    filterFn (val, update, abort) {
+      update(() => {
+        const needle = val.toLowerCase()
+        this.options = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+      })
     }
   }
 }

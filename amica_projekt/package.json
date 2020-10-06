@@ -13,7 +13,9 @@
     "@quasar/cli": "^1.1.2",
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "firebase": "^7.22.1",
+    "quasar": "^1.0.0",
+    "vuefire": "^2.2.4"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

@@ -45,7 +45,7 @@ export default {
     login: function () {
       console.log(this.email + ' ' + this.password)
       auth.signInWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
-      this.$router.push({ path: '/AdminLogin' })
+      this.$router.push({ path: '/AdminPage' })
     },
     devRegister: function () {
       console.log(this.email + ' ' + this.password)

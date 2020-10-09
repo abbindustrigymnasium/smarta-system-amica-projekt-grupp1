@@ -27,6 +27,10 @@ const routes = [
     // ]
   },
   {
+    path: '/Graph',
+    component: () => import('pages/Graph.vue')
+  },
+  {
     path: '*',
     component: () => import('pages/Error404.vue')
   }

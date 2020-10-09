@@ -5,11 +5,11 @@
         404
       </div>
 
-      <div class="text-h2 text-red-4" style="opacity:.4">
+      <div class="text-h2 text-red-4" style="opacity:.9">
         Oops. Nothing here...
       </div>
 
-      <q-btn class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home"/>
+      <q-btn class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home" style="border-radius: 25px; border: 1px solid;"/>
 
     </div>
   </div>

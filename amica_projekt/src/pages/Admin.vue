@@ -3,6 +3,7 @@
     <div class="column">
 
       <div class="row">
+        print(fuck you)
       </div>
 
     </div>
@@ -20,13 +21,7 @@ export default {
   .bg-darkBackground {
     background-color: #121212;
   }
-  .bg-primaryColor {
-    color: #bb86fc;
-  }
-  .bg-secondaryColor{
-    color: #03dac6;
-  }
-  .bg-colorthingy{
+  .bg-darkBackgroundLayer{
      background-color: #1F1B24;
   }
 </style>

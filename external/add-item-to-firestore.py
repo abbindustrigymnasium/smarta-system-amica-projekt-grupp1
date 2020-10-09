@@ -5,7 +5,7 @@ from firebase_admin import firestore
 # Use the application default credentials
 cred = credentials.Certificate("service-token.json")
 firebase_admin.initialize_app(cred, {
-  'projectId': 'amicaproject-9d07b'
+  'projectId': 'amica-project1'
 })
  
 db = firestore.client()

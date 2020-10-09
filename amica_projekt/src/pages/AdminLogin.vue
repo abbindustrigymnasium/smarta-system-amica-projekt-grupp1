@@ -3,12 +3,12 @@
     <div class="column">
 
       <div class="row">
-        <q-card square bordered class="q-pa-lg bg-colorthingy">
+        <q-card square bordered class="q-pa-lg bg-darkBackgroundLayer">
           <q-card-section>
             <q-form>
 
-              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="email" type="email" label="email"/>
-              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="password" type="password" label="password"/>
+              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="email" type="email" label="Email"/>
+              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="password" type="password" label="Password"/>
 
             </q-form>
           </q-card-section>
@@ -21,7 +21,7 @@
         </q-card>
       </div>
 
-      <q-btn class="q-mt-xl bg-colorthingy" text-color="teal-14" unelevated to="/" label="Go Home" no-caps/>
+      <q-btn class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home"/>
 
     </div>
   </div>
@@ -39,9 +39,13 @@ export default {
     }
   },
   methods: {
+    home: function () {
+      this.$router.push({ path: '/' })
+    },
     login: function () {
       console.log(this.email + ' ' + this.password)
       auth.signInWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
+      this.$router.push({ path: '/AdminLogin' })
     },
     devRegister: function () {
       console.log(this.email + ' ' + this.password)
@@ -56,13 +60,7 @@ export default {
   .bg-darkBackground {
     background-color: #121212;
   }
-  .bg-primaryColor {
-    color: #bb86fc;
-  }
-  .bg-secondaryColor{
-    color: #03dac6;
-  }
-  .bg-colorthingy{
+  .bg-darkBackgroundLayer {
      background-color: #1F1B24;
   }
 </style>

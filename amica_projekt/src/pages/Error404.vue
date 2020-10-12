@@ -1,29 +1,36 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
-    <div>
-      <div style="font-size: 30vh">
+  <div class="bg-darkBackground window-height window-width row q-pa-md justify-center items-center">
+    <div class="bg-darkBackgroundLayer" style="padding:1%; border-radius: 25px;">
+      <div style="font-size: 30vh" class="text-red-10">
         404
       </div>
 
-      <div class="text-h2" style="opacity:.4">
+      <div class="text-h2 text-red-4" style="opacity:.9">
         Oops. Nothing here...
       </div>
 
-      <q-btn
-        class="q-mt-xl"
-        color="white"
-        text-color="blue"
-        unelevated
-        to="/"
-        label="Go Home"
-        no-caps
-      />
+      <q-btn class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home" style="border-radius: 25px; border: 1px solid;"/>
+
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Error404'
+  name: 'Error404',
+  methods: {
+    home: function () {
+      this.$router.push({ path: '/' })
+    }
+  }
 }
 </script>
+
+<style>
+  .bg-darkBackground {
+    background-color: #121212;
+  }
+  .bg-darkBackgroundLayer {
+     background-color: #1F1B24;
+  }
+</style>

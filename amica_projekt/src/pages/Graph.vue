@@ -1,64 +1,71 @@
 <template>
-  <q-page class="q-pa-md bg-grey-2">
-    <q-card>
-      <q-card-section>
-        <div class="text-h6 text-grey-8 text-weight-bolder">
-          Bar Chart
-        </div>
-      </q-card-section>
-      <q-card-section class="q-pa-none echarts">
-        <IEcharts :option="barChartOption" :resizable="true"/>
-      </q-card-section>
-    </q-card>
-  </q-page>
+  <div class="bg-darkBackground window-height window-width row q-pa-md justify-center items-center">
+    <div class="row">
+      <line-chart class="bg-darkBackgroundLayer" :chart-data="datacollection">
+      </line-chart>
+    </div>
+    <div class="row">
+      <button @click="getData()">Randomize</button>
+    </div>
+  </div>
 </template>
+
 <script>
-import IEcharts from 'vue-echarts-v3/src/full.js'
+import LineChart from '../js/CHHart.js'
 
 export default {
-  name: 'charts',
+  components: {
+    LineChart
+  },
   data () {
     return {
-      barChartOption: {
-        grid: {
-          bottom: '25%'
-        },
-        legend: {},
-        tooltip: {},
-        dataset: {
-          dimensions: ['product', '2015', '2016', '2017'],
-          source: [
-            { product: 'Matcha Latte', 2015: 43.3, 2016: 85.8, 2017: 93.7 },
-            { product: 'Milk Tea', 2015: 83.1, 2016: 73.4, 2017: 55.1 },
-            { product: 'Cheese Cocoa', 2015: 86.4, 2016: 65.2, 2017: 82.5 },
-            { product: 'Walnut Brownie', 2015: 72.4, 2016: 53.9, 2017: 39.1 }
-          ]
-        },
-        xAxis: {
-          type: 'category',
-          axisLabel: {
-            rotate: 45
-          }
-        },
-        yAxis: {},
-        // Declare several bar series, each will be mapped
-        // to a column of dataset.source by default.
-        series: [
-          { type: 'bar' },
-          { type: 'bar' },
-          { type: 'bar' }
-        ]
-      }
+      datacollection: null
     }
   },
-  components: {
-    IEcharts
+  mounted () {
+    this.getData()
+  },
+  methods: {
+    getData () {
+      this.datacollection = {
+        // hämta data och lägg in de här
+        datasets: [
+          {
+            label: '1',
+            backgroundColor: '#ff4545',
+            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+          }, {
+            label: '2',
+            backgroundColor: '#ffa534',
+            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+          }, {
+            label: '3',
+            backgroundColor: '#ffe234',
+            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+          }, {
+            label: '4',
+            backgroundColor: '#b7dd29',
+            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+          }, {
+            label: '5',
+            backgroundColor: '#57e32c',
+            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+          }
+        ]
+      }
+    },
+    getRandomInt () {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+    }
   }
 }
 </script>
-<style scoped>
-  .echarts {
-    width: 400px;
-    height: 400px;
+
+<style>
+  .bg-darkBackground {
+    background-color: #121212;
+  }
+  .bg-darkBackgroundLayer{
+     background-color: #1F1B24;
   }
 </style>

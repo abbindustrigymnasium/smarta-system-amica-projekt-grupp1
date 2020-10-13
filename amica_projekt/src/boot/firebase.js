@@ -1,14 +1,14 @@
 import { firestorePlugin } from 'vuefire'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import 'firebase/auth'
+import firebaseService from '../services/firebase'
 
 let db
-let auth
-export default ({ Vue }) => {
+
+export default ({ Vue, store }) => {
   Vue.use(firestorePlugin)
 
-  var firebaseConfig = {
+  const firebaseConfig = {
     apiKey: 'AIzaSyDAeUone08CW7t3OWQVuMlt9-BeoOJVhIQ',
     authDomain: 'amica-project1.firebaseapp.com',
     databaseURL: 'https://amica-project1.firebaseio.com',
@@ -20,9 +20,19 @@ export default ({ Vue }) => {
   }
 
   firebase.initializeApp(firebaseConfig)
+
+  // Tell the application what to do when the
+  // authentication state has changed
+  firebaseService.auth().onAuthStateChanged((user) => {
+    firebaseService.handleOnAuthStateChanged(store, user)
+  }, (error) => {
+    console.error(error)
+  })
+
+  Vue.prototype.$fb = firebaseService
+  store.$fb = firebaseService
+
   db = firebase.firestore()
-  auth = firebase.auth()
 }
 
 export { db }
-export { auth }

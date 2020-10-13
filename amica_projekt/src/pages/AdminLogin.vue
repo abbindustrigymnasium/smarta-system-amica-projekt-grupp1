@@ -28,28 +28,44 @@
 </template>
 
 <script>
-import { auth } from '../boot/firebase'
+// import { auth } from '../boot/firebase'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'AdminLogin',
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      loginError: false,
+      loading: false
     }
   },
   methods: {
+    ...mapActions('auth', ['loginUser']),
     home: function () {
       this.$router.push({ path: '/' })
     },
     login: function () {
-      console.log(this.email + ' ' + this.password)
-      auth.signInWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
-      this.$router.push({ path: '/AdminPage' })
+      // console.log(this.email + ' ' + this.password)
+      // auth.signInWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
+      // this.$router.push({ path: '/AdminPage' })
+      this.loading = true
+      const user = { email: this.email, password: this.password }
+      console.log(user)
+      this.loginUser(user)
+        .then(u => {
+          this.$router.push('/AdminPage')
+        })
+        .catch(error => {
+          console.error('Email-Password login:', error)
+          this.loginError = true
+          this.loading = false
+        })
     },
     devRegister: function () {
       console.log(this.email + ' ' + this.password)
-      auth.createUserWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
+      // auth.createUserWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
     }
   }
 }

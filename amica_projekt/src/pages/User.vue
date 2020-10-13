@@ -8,20 +8,21 @@
       </div>
       <div class="column" style="height: 80%">
         <div class="col-6">
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" :label="mat1" @click=toggleDialog(1,mat1) />
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" :label="mat2" @click=toggleDialog(1,mat2) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat2)" @click=toggleDialog(1,mat2) />
         </div>
         <div class="col-6">
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" :label="mat3" @click=toggleDialog(1,mat3) />
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" :label="mat4" @click=toggleDialog(1,mat4) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" v-html="decoder(mat3)" @click=toggleDialog(1,mat3) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" v-html="decoder(mat4)" @click=toggleDialog(1,mat4) />
         </div>
       </div>
     </div>
     <div>
       <q-dialog v-model="dialog1">
-          <q-card style="width: 100%; height: 50%" class="bg-darkBackgroundLayer">
+          <q-card style="width: 100%; height: flex" class="bg-darkBackgroundLayer">
             <q-card-section class="text-center items-center">
-              <h4 class="text-deep-purple-4">Betygsätt {{clicked}}</h4>
+              <h3 class="text-deep-purple-4">Hur smakade</h3>
+              <h4 class="text-deep-purple-4" v-html="decoder(clicked)"></h4>
               <q-rating v-model="ratingModel" size="3.5em" color="teal-14" icon="star_border" icon-selected="star" @click=toggleDialog(2) />
             </q-card-section>
           </q-card>
@@ -51,6 +52,7 @@
 </template>
 
 <script>
+import { parseXml, xml2json } from '../xml_to_json'
 const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 export default {
   name: 'User',
@@ -58,10 +60,10 @@ export default {
     return {
       dialog1: false,
       dialog2: false,
-      mat1: 'spaghetti med köttfärsås',
-      mat2: 'köttbullar',
-      mat3: 'pizza',
-      mat4: 'soppa',
+      mat1: '',
+      mat2: '',
+      mat3: '',
+      mat4: '',
       clicked: '',
       options: stringOptions,
       ratingModel: 0,
@@ -92,7 +94,40 @@ export default {
         const needle = val.toLowerCase()
         this.options = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
       })
+    },
+    getFood () {
+      fetch('https://cors-anywhere.herokuapp.com/' + 'https://foodandco.se/modules/MenuRss/MenuRss/CurrentWeek?costNumber=6417&language=sv')
+        .then(result => {
+          result.text().then(response => {
+            var today = new Date()
+            const myDom = parseXml(response)
+            const myJson = xml2json(myDom)
+            const mySplitArray = myJson.split('undefined')
+            const myNewJson = JSON.parse(mySplitArray[0] + mySplitArray[1])
+            var tempmenu = myNewJson.rss.channel.item
+            var weekmenu = []
+            for (var i = 0; i < Object.keys(tempmenu).length; i++) {
+              if (tempmenu[i].description != null) {
+                weekmenu.push(tempmenu[i].description.split(/(?=&lt;p&gt;)/g))
+              } else {
+                weekmenu.push([])
+              }
+            }
+            this.mat1 = weekmenu[today.getDay() - 1][0]
+            this.mat2 = weekmenu[today.getDay() - 1][1]
+            this.mat3 = weekmenu[today.getDay() - 1][2]
+            this.mat4 = weekmenu[today.getDay() - 1][3]
+          })
+        })
+    },
+    decoder (str) {
+      const textArea = document.createElement('textarea')
+      textArea.innerHTML = str
+      return textArea.value
     }
+  },
+  mounted () {
+    this.getFood()
   }
 }
 </script>

@@ -1,84 +1,58 @@
 <template>
-  <div class="bg-darkBackground">
-    <div class="row">
-      <div class="col"/>
-      <div class="col-7 col-md-auto" style="text-align: center">
-        <h2 class="text-deep-purple-4" style="height: 15vh">Vad åt du idag?</h2>
+  <div>
+    <div class="bg-darkBackground window-height window-width justify-center items-center">
+      <div class="column" style="height: 20%">
+        <div class="col-8" style="text-align: center">
+          <h2 class="text-deep-purple-4">Vad åt du idag?</h2>
+        </div>
       </div>
-      <div class="col"/>
-    </div>
-    <div class="row justify-around">
-      <div class="col-6">
-        <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" flat style="width: 100%; height: 35vh" size="24px" :label="mat1" @click=toggleDialog(1,mat1) />
-        <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" flat style="width: 100%; height: 35vh" size="24px" label="Kötbullar" @click=toggleDialog(1,mat2) />
-      </div>
-      <div class="col-6">
-        <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" flat style="width: 100%; height: 35vh" size="24px" label="Pizza" @click=toggleDialog(1,mat3) />
-        <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" flat style="width: 100%; height: 35vh" size="24px" label="Soppa" @click=toggleDialog(1,mat4) />
+      <div class="column" style="height: 80%">
+        <div class="col-6">
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat2)" @click=toggleDialog(1,mat2) />
+        </div>
+        <div class="col-6">
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" v-html="decoder(mat3)" @click=toggleDialog(1,mat3) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" v-html="decoder(mat4)" @click=toggleDialog(1,mat4) />
+        </div>
       </div>
     </div>
     <div>
-      <q-dialog v-model="dialog1" class="flex flex-center">
-        <q-card class="col-12 col-xl-2 justify-center">
-          <q-card-section class="row justify-center full-height full-width text-center">
-            <h4>Betygsätt {{clicked}}</h4>
-          </q-card-section>
-              <div class="row justify-center full-height full-width text-center">
-                <q-rating
-                          v-model="ratingModel"
-                          size="3.5em"
-                          color="yellow"
-                          icon="star_border"
-                          icon-selected="star"
-                          @click=toggleDialog(2)
-                        />
-          </div>
-          <q-card-section class="row items-center">
-          </q-card-section>
-        </q-card>
+      <q-dialog v-model="dialog1">
+          <q-card style="width: 100%; height: flex" class="bg-darkBackgroundLayer">
+            <q-card-section class="text-center items-center">
+              <h3 class="text-deep-purple-4">Hur smakade</h3>
+              <h4 class="text-deep-purple-4" v-html="decoder(clicked)"></h4>
+              <q-rating v-model="ratingModel" size="3.5em" color="teal-14" icon="star_border" icon-selected="star" @click=toggleDialog(2) />
+            </q-card-section>
+          </q-card>
       </q-dialog>
-    </div>
-    <div>
       <q-dialog flat v-model="dialog2">
-        <div>
-          <q-card>
-            <div id="q-app" class="row">
+        <q-card style="width: 100%; height: 50%" class="bg-darkBackgroundLayer">
+          <div class="justify-center items-center">
+            <div>
               <div>
-                <div>
-                  <q-select
-                    filled
-                    v-model="model"
-                    use-input
-                    hide-selected
-                    fill-input
-                    input-debounce="0"
-                    :options="options"
-                    @filter="filterFn"
-                    style="width: 250px"
-                    label = "Föreslå en maträtt"
-                  >
-                    <template v-slot:no-option>
-                      <q-item>
-                        <q-item-section class="text-grey">
-                          No results
-                        </q-item-section>
-                      </q-item>
-                    </template>
-                  </q-select>
-                </div>
+                <q-select filled v-model="model" use-input hide-selected fill-input input-debounce="0" :options="options" @filter="filterFn" label="Föreslå en maträtt" color="teal-14" label-color="teal-14" dark outlined>
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
               </div>
             </div>
-          </q-card>
-          <div class="row">
-            <q-btn label="Submit" type="submit" color="primary"/>
           </div>
-        </div>
+          <q-btn size="lg" class="bg-deep-purple-4 absolute-bottom" label="Submit" type="submit" color="primary" style="margin:auto; width:50%"/>
+         </q-card>
       </q-dialog>
     </div>
   </div>
 </template>
 
 <script>
+import { parseXml, xml2json } from '../xml_to_json'
 const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 export default {
   name: 'User',
@@ -86,10 +60,10 @@ export default {
     return {
       dialog1: false,
       dialog2: false,
-      mat1: 'spaghetti med köttfärsås',
-      mat2: 'köttbullar',
-      mat3: 'pizza',
-      mat4: 'soppa',
+      mat1: '',
+      mat2: '',
+      mat3: '',
+      mat4: '',
       clicked: '',
       options: stringOptions,
       ratingModel: 0,
@@ -120,7 +94,40 @@ export default {
         const needle = val.toLowerCase()
         this.options = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
       })
+    },
+    getFood () {
+      fetch('https://cors-anywhere.herokuapp.com/' + 'https://foodandco.se/modules/MenuRss/MenuRss/CurrentWeek?costNumber=6417&language=sv')
+        .then(result => {
+          result.text().then(response => {
+            var today = new Date()
+            const myDom = parseXml(response)
+            const myJson = xml2json(myDom)
+            const mySplitArray = myJson.split('undefined')
+            const myNewJson = JSON.parse(mySplitArray[0] + mySplitArray[1])
+            var tempmenu = myNewJson.rss.channel.item
+            var weekmenu = []
+            for (var i = 0; i < Object.keys(tempmenu).length; i++) {
+              if (tempmenu[i].description != null) {
+                weekmenu.push(tempmenu[i].description.split(/(?=&lt;p&gt;)/g))
+              } else {
+                weekmenu.push([])
+              }
+            }
+            this.mat1 = weekmenu[today.getDay() - 1][0]
+            this.mat2 = weekmenu[today.getDay() - 1][1]
+            this.mat3 = weekmenu[today.getDay() - 1][2]
+            this.mat4 = weekmenu[today.getDay() - 1][3]
+          })
+        })
+    },
+    decoder (str) {
+      const textArea = document.createElement('textarea')
+      textArea.innerHTML = str
+      return textArea.value
     }
+  },
+  mounted () {
+    this.getFood()
   }
 }
 </script>

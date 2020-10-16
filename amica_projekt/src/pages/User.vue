@@ -8,7 +8,7 @@
       </div>
       <div class="column" style="height: 80%">
         <div class="col-6">
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%;" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
           <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat2)" @click=toggleDialog(1,mat2) />
         </div>
         <div class="col-6">
@@ -44,7 +44,7 @@
               </div>
             </div>
           </div>
-          <q-btn size="lg" class="bg-deep-purple-4 absolute-bottom" label="Submit" type="submit" color="primary" style="margin:auto; width:50%"/>
+          <q-btn size="lg" class="bg-deep-purple-4 absolute-bottom" label="Submit" type="submit" color="primary" style="margin:auto; width:50%" @click=clickUpdate() />
          </q-card>
       </q-dialog>
     </div>
@@ -53,6 +53,7 @@
 
 <script>
 import { parseXml, xml2json } from '../xml_to_json'
+import { db, increment } from '../boot/firebase'
 const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 export default {
   name: 'User',
@@ -101,7 +102,7 @@ export default {
           result.text().then(response => {
             var today = new Date()
             const myDom = parseXml(response)
-            const myJson = xml2json(myDom)
+          const myJson = xml2json(myDom)
             const mySplitArray = myJson.split('undefined')
             const myNewJson = JSON.parse(mySplitArray[0] + mySplitArray[1])
             var tempmenu = myNewJson.rss.channel.item
@@ -124,6 +125,43 @@ export default {
       const textArea = document.createElement('textarea')
       textArea.innerHTML = str
       return textArea.value
+    },
+    clickUpdate () {
+      console.log("hej")
+      var star = this.ratingVal
+      console.log(star)
+      let update
+      switch(star) {
+        case 1 :
+          update = {'one': increment}
+          break
+        case 2: 
+          update = {'two': increment}
+          break
+        case 3 :
+          update = {'three': increment}
+          break
+        case 4: 
+          update = {'four': increment}
+          break
+        case 5: 
+          update = {'five': increment}
+          break
+      }
+
+      var selectedFood = this.decoder(this.clicked)
+        .replace('<p>', '')
+        .replace('</p>', '')
+      console.log("kjh")
+      db.collection('Dagens_Maträtter').doc('Amica').collection('2020-10-13').doc('Kycklingbullar serveras med het tomatsås, rostad potatis och picklade grönsaker med vit balsamvinäger').update(update)
+      this.dialog2 = !this.dialog2
+    },
+    getDate () {
+      var today = new Date()
+      var dd = String(today.getDate()).padStart(2, '0')
+      var mm = String(today.getMonth() + 1).padStart(2, '0')
+      var yyyy = today.getFullYear()
+      return yyyy + '-' + mm + '-' + dd
     }
   },
   mounted () {

@@ -4,6 +4,7 @@ import 'firebase/firestore'
 import firebaseService from '../services/firebase'
 
 let db
+let increment
 
 export default ({ Vue, store }) => {
   Vue.use(firestorePlugin)
@@ -33,6 +34,7 @@ export default ({ Vue, store }) => {
   store.$fb = firebaseService
 
   db = firebase.firestore()
+  increment = firebase.firestore.FieldValue.increment(1)
 }
 
-export { db }
+export { db, increment }

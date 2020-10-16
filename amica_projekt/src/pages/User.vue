@@ -6,9 +6,9 @@
           <h2 class="text-deep-purple-4">Vad åt du idag?</h2>
         </div>
       </div>
-      <div class="column" style="height: 80%">
+      <div class="column" style="height: 80% ">
         <div class="col-6">
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
+          <q-btn class="bg-darkBackgroundLayer" align="center" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
           <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat2)" @click=toggleDialog(1,mat2) />
         </div>
         <div class="col-6">
@@ -138,5 +138,13 @@ export default {
   }
   .bg-darkBackgroundLayer {
      background-color: #1F1B24;
+  }
+  .q-btn {
+    position: relative;
+  }
+  .q-btn p {
+    position: absolute;
+    top: 50%;
+    width: 100%;
   }
 </style>

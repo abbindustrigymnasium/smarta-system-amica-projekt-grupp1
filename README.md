@@ -15,7 +15,8 @@ Klient applikationen ska bestå av 3 olika delar. Användaren ska först få ang
   4. Admin Log in
   5. Admin
 
-
 ![Test Image 1](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/user.PNG)
+
 ![Test Image 2](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/user%20-%20rate.PNG)
 
+![Test Image 3](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/Admin_log_in.png)

@@ -8,7 +8,7 @@
       </div>
       <div class="column" style="height: 80% ">
         <div class="col-6">
-          <q-btn class="bg-darkBackgroundLayer" align="center" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
+          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
           <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat2)" @click=toggleDialog(1,mat2) />
         </div>
         <div class="col-6">

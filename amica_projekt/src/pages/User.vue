@@ -1,33 +1,21 @@
 <template>
-  <div>
-    <div class="bg-darkBackground window-height window-width justify-center items-center">
-      <div class="column" style="height: 20%">
-        <div class="col-8" style="text-align: center">
-          <h2 class="text-deep-purple-4">Vad åt du idag?</h2>
-        </div>
+  <div class="bg-darkBackground window-height column">
+      <h2 class="text-deep-purple-4 q-ma-none text-center q-py-xl col-2">Vad åt du idag?</h2>
+      <div class="row col-5">
+        <q-btn v-for="(food, index) in foodList" :key="index" class="col-6 bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%; " size="24px" v-html="decoder(food.foodName)" @click=toggleDialog(1,food.foodName) />
+        <!-- lägg till food.foodName i classen/indexen så vi kan peka mot de i clickUpdate (använd queryselector?) -->
       </div>
-      <div class="column" style="height: 80% ">
-        <div class="col-6">
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat1)" @click=toggleDialog(1,mat1) />
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%" size="24px" v-html="decoder(mat2)" @click=toggleDialog(1,mat2) />
-        </div>
-        <div class="col-6">
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" v-html="decoder(mat3)" @click=toggleDialog(1,mat3) />
-          <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%;  height: 100%" size="24px" v-html="decoder(mat4)" @click=toggleDialog(1,mat4) />
-        </div>
-      </div>
-    </div>
-    <div>
       <q-dialog v-model="dialog1">
           <q-card style="width: 100%; height: flex" class="bg-darkBackgroundLayer">
             <q-card-section class="text-center items-center">
-              <h3 class="text-deep-purple-4">Hur smakade</h3>
-              <h4 class="text-deep-purple-4" v-html="decoder(clicked)"></h4>
+              <h4 class="text-deep-purple-4">Betygsätt:</h4>
+              <h5 class="text-deep-purple-4" v-html="decoder(clicked)"></h5>
               <q-rating v-model="ratingModel" size="3.5em" color="teal-14" icon="star_border" icon-selected="star" @click=toggleDialog(2) />
+              <q-btn size="lg" class="bg-deep-purple-4 absolute-bottom" label="Submit" type="submit" color="primary" style="margin:auto; width:50%" @click=clickUpdate() />
             </q-card-section>
           </q-card>
       </q-dialog>
-      <q-dialog flat v-model="dialog2">
+      <!-- <q-dialog flat v-model="dialog2">
         <q-card style="width: 100%; height: 50%" class="bg-darkBackgroundLayer">
           <div class="justify-center items-center">
             <div>
@@ -46,9 +34,8 @@
           </div>
           <q-btn size="lg" class="bg-deep-purple-4 absolute-bottom" label="Submit" type="submit" color="primary" style="margin:auto; width:50%" @click=clickUpdate() />
          </q-card>
-      </q-dialog>
+      </q-dialog> -->
     </div>
-  </div>
 </template>
 
 <script>
@@ -59,12 +46,15 @@ export default {
   name: 'User',
   data () {
     return {
+      date: null,
       dialog1: false,
       dialog2: false,
-      mat1: '',
-      mat2: '',
-      mat3: '',
-      mat4: '',
+      foodList: {
+        foodOne: { foodName: ''},
+        foodTwo: { foodName: ''},
+        foodThree: { foodName: ''},
+        foodFour: { foodName: ''}
+      },
       clicked: '',
       options: stringOptions,
       ratingModel: 0,
@@ -76,18 +66,13 @@ export default {
   methods: {
     toggleDialog: function (state, mat) {
       if (state === 1) {
+        console.log(mat)
         this.ratingModel = 0
-        this.model = ''
         this.dialog1 = !this.dialog1
         this.clicked = mat
       }
       if (state === 2) {
-        this.dialog1 = !this.dialog1
-        this.dialog2 = !this.dialog2
-        this.modelVal = this.model
         this.ratingVal = this.ratingModel
-        console.log(this.modelVal)
-        console.log(this.ratingVal)
       }
     },
     filterFn (val, update, abort) {
@@ -102,7 +87,7 @@ export default {
           result.text().then(response => {
             var today = new Date()
             const myDom = parseXml(response)
-          const myJson = xml2json(myDom)
+            const myJson = xml2json(myDom)
             const mySplitArray = myJson.split('undefined')
             const myNewJson = JSON.parse(mySplitArray[0] + mySplitArray[1])
             var tempmenu = myNewJson.rss.channel.item
@@ -112,12 +97,21 @@ export default {
                 weekmenu.push(tempmenu[i].description.split(/(?=&lt;p&gt;)/g))
               } else {
                 weekmenu.push([])
-              }
+              } 
             }
-            this.mat1 = weekmenu[today.getDay() - 1][0]
-            this.mat2 = weekmenu[today.getDay() - 1][1]
-            this.mat3 = weekmenu[today.getDay() - 1][2]
-            this.mat4 = weekmenu[today.getDay() - 1][3]
+
+            var docDirectory = db.collection("Dagens_Maträtter").doc("Amica")
+            const nameForIndexing = ['foodOne', 'foodTwo', 'foodThree', 'foodFour']
+            for (let j=0; j<4; j++) {
+              docDirectory.collection(this.getDate()).doc(nameForIndexing[j]).set({
+                oneStar: 0,
+                twoStar: 0,
+                threeStar: 0,
+                fourStar: 0,
+                fiveStar: 0,
+                foodName: weekmenu[today.getDay() - 1][j]
+              })
+            }
           })
         })
     },
@@ -127,33 +121,30 @@ export default {
       return textArea.value
     },
     clickUpdate () {
-      console.log("hej")
       var star = this.ratingVal
       console.log(star)
       let update
       switch(star) {
-        case 1 :
-          update = {'one': increment}
+        case 1:
+          update = {'oneStar': increment}
           break
         case 2: 
-          update = {'two': increment}
+          update = {'twoStar': increment}
           break
-        case 3 :
-          update = {'three': increment}
+        case 3:
+          update = {'threeStar': increment}
           break
         case 4: 
-          update = {'four': increment}
+          update = {'fourStar': increment}
           break
         case 5: 
-          update = {'five': increment}
+          update = {'fiveStar': increment}
           break
       }
 
       var selectedFood = this.decoder(this.clicked)
-        .replace('<p>', '')
-        .replace('</p>', '')
-      console.log("kjh")
-      db.collection('Dagens_Maträtter').doc('Amica').collection('2020-10-13').doc('Kycklingbullar serveras med het tomatsås, rostad potatis och picklade grönsaker med vit balsamvinäger').update(update)
+      console.log(selectedFood)
+      db.collection('Dagens_Maträtter').doc('Amica').collection(this.getDate()).doc(selectedFood).update(update)
       this.dialog2 = !this.dialog2
     },
     getDate () {
@@ -162,10 +153,33 @@ export default {
       var mm = String(today.getMonth() + 1).padStart(2, '0')
       var yyyy = today.getFullYear()
       return yyyy + '-' + mm + '-' + dd
+    },
+    getTodaysFood () {
+      var docDirectory = db.collection("Dagens_Maträtter").doc("Amica")
+
+      docDirectory.collection(this.getDate()).limit(1).get()
+        .then(query => {
+          if (query.size === 0) {
+            this.getFood()
+          }
+          this.date = this.getDate()
+        })
     }
   },
   mounted () {
-    this.getFood()
+    this.getTodaysFood()
+  },
+  watch: {
+    date: {
+      immediate: true,
+      handler (date) {
+        if(date != null) {
+        this.$bind('foodList', db.collection('Dagens_Maträtter').doc('Amica').collection(date)).then(u => {
+          console.log(this.foodList)
+        })
+      }
+      }
+    }
   }
 }
 </script>
@@ -182,7 +196,7 @@ export default {
   }
   .q-btn p {
     position: absolute;
-    top: 50%;
+    top: 43%;
     width: 100%;
   }
 </style>

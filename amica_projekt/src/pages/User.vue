@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-darkBackground window-height column">
+  <div style="overflow: hidden" class="bg-darkBackground window-height column">
     <div v-if="$q.screen.lt.md" class="q-mt-lg row justify-center">
       <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
     </div>
@@ -50,10 +50,10 @@ export default {
       date: null,
       dialog1: false,
       foodList: {
-        foodOne: { foodName: ''},
-        foodTwo: { foodName: ''},
-        foodThree: { foodName: ''},
-        foodFour: { foodName: ''}
+        foodA: { foodName: ''},
+        foodB: { foodName: ''},
+        foodC: { foodName: ''},
+        foodD: { foodName: ''}
       },
       clicked: '',
       ratingModel: 0,
@@ -108,7 +108,7 @@ export default {
             }
 
             var docDirectory = db.collection("Dagens_Maträtter").doc("Amica")
-            const nameForIndexing = ['foodOne', 'foodTwo', 'foodThree', 'foodFour']
+            const nameForIndexing = ['foodA', 'foodB', 'foodC', 'foodD']
             for (let j=0; j<4; j++) {
               docDirectory.collection(this.getDate()).doc(nameForIndexing[j]).set({
                 oneStar: 0,

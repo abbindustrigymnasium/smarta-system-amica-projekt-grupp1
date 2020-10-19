@@ -1,7 +1,6 @@
 <template>
   <div class="bg-darkBackground window-height window-width row q-pa-md justify-center items-center">
     <div class="column">
-
       <div class="row">
         <q-card square bordered class="q-pa-lg bg-darkBackgroundLayer">
           <q-card-section>

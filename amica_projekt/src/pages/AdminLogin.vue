@@ -6,18 +6,32 @@
         <q-card square bordered class="q-pa-lg bg-darkBackgroundLayer">
           <q-card-section>
             <q-form>
-
-              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="email" type="email" label="Email"/>
-              <q-input color="teal-14" label-color="teal-14" dark outlined v-model="password" type="password" label="Password"/>
-
+              <q-input v-if="loginError" color="red-4" label-color="red-4" dark outlined v-model="email" type="email" label="Email"/>
+              <q-input v-else color="teal-14" label-color="teal-14" dark outlined v-model="email" type="email" label="Email"/>
+            </q-form>
+            <q-form>
+              <q-input v-if="loginError" color="red-4" label-color="red-4" dark outlined v-model="password" type="password" label="Password"/>
+              <q-input v-else color="teal-14" label-color="teal-14" dark outlined v-model="password" type="password" label="Password"/>
             </q-form>
           </q-card-section>
-          <q-card-actions class="q-px-md">
+          <q-card-actions v-if="loginError" class="q-px-md">
+            <q-btn size="lg" class="full-width bg-red-4" label="Login" @click="login"/>
+          </q-card-actions>
+          <q-card-actions v-else class="q-px-md">
             <q-btn size="lg" class="full-width bg-deep-purple-4" label="Login" @click="login"/>
           </q-card-actions>
-          <q-card-actions class="q-px-md">
+          <!-- <q-card-actions class="q-px-md">
             <q-btn size="sm" class="full-width bg-deep-purple-4" label="devRegister" @click="devRegister"/>
-          </q-card-actions>
+          </q-card-actions> -->
+          <q-card-section v-if="loginError" class="bg-darkBackgroundLayer2 text-center q-pa-none" style="border-radius: 5px;">
+            <p class="text-red-10">LoginError<br>Wrong email/password</p>
+          </q-card-section>
+          <q-card-section v-else-if="!loading" class="bg-darkBackgroundLayer2 text-center q-pa-none" style="border-radius: 5px;">
+            <p class="text-teal-14">Admin login<br>For amica personnel only</p>
+          </q-card-section>
+          <q-card-section v-else class="bg-darkBackgroundLayer2 text-center q-pa-none" style="border-radius: 5px;">
+            <p class="text-teal-14">Hold on<br>Trying to log you in</p>
+          </q-card-section>
         </q-card>
       </div>
 
@@ -28,7 +42,6 @@
 </template>
 
 <script>
-// import { auth } from '../boot/firebase'
 import { mapActions } from 'vuex'
 
 export default {
@@ -41,15 +54,18 @@ export default {
       loading: false
     }
   },
+  mounted () {
+    this.routeIfLoggedIn()
+  },
   methods: {
     ...mapActions('auth', ['loginUser']),
     home: function () {
       this.$router.push({ path: '/' })
     },
+    routeIfLoggedIn: function () {
+      this.$router.push({ path: '/AdminPage' })
+    },
     login: function () {
-      // console.log(this.email + ' ' + this.password)
-      // auth.signInWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
-      // this.$router.push({ path: '/AdminPage' })
       this.loading = true
       const user = { email: this.email, password: this.password }
       console.log(user)
@@ -61,12 +77,14 @@ export default {
           console.error('Email-Password login:', error)
           this.loginError = true
           this.loading = false
+          setTimeout(() => {
+            this.loginError = false
+          }, 4000)
         })
-    },
-    devRegister: function () {
-      console.log(this.email + ' ' + this.password)
-      // auth.createUserWithEmailAndPassword(this.email, this.password).catch(function (error) { console.log(error) })
-    }
+    }//,
+    // devRegister: function () {
+    //   console.log(this.email + ' ' + this.password)
+    // }
   }
 }
 
@@ -78,5 +96,8 @@ export default {
   }
   .bg-darkBackgroundLayer {
      background-color: #1F1B24;
+  }
+  .bg-darkBackgroundLayer2 {
+    background-color: #302A38
   }
 </style>

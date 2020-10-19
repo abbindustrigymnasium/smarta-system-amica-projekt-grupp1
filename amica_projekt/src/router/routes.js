@@ -1,5 +1,3 @@
-// import store from '../store/auth/index'
-
 const routes = [
   {
     path: '/',
@@ -17,20 +15,7 @@ const routes = [
   {
     path: '/Admin',
     component: () => import('pages/AdminLogin.vue')
-    // children: [
-    //   {
-    //     path: '/Login',
-    //     component: () => import('pages/Admin.vue'),
-    //     meta: {
-    //       requiresAuth: true
-    //     }
-    //   }
-    // ]
   },
-  // {
-  //   path: '/Graph',
-  //   component: () => import('pages/Graph.vue')
-  // },
   {
     path: '/Request',
     component: () => import('pages/Request.vue')
@@ -41,14 +26,4 @@ const routes = [
   }
 ]
 
-// routes.beforeEach((to, from, next) => {
-//   // const isLoggedIn = store.getters['auth', ['isAuthenticated']]
-//   const isLoggedIn = store.getters['auth/isAuthenticated']
-
-//   if (to.matched.some(record => record.meta.requiresAuth) && !isLoggedIn) {
-//     next('/Admin')
-//   }
-
-//   next()
-// })
 export default routes

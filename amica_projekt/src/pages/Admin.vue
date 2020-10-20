@@ -1,18 +1,22 @@
 <template>
   <div class="bg-darkBackground window-height window-width q-pa-lg justify-center items-center">
     <div class="bg-darkBackgroundLayer q-gutter-md row">
-      <div class="">
-        <line-chart styles="width: 750px" class="bg-darkBackgroundLayer2" :chart-data="dataGraph"></line-chart>
+      <div>
+        <line-chart styles="width: 0.39*window-width px" class="bg-darkBackgroundLayer2" :chart-data="dataGraph"></line-chart>
       </div>
-      <div id="legend" class="q-pl-xl">
-      <h3>Dagens rätter: </h3>
-        <h5>Maträtt 1: </h5><h5 v-html="decoder(this.datacollection[0].foodName)"/>
+      <div id="legend" class="bg-darkBackgroundLayer q-pl-xl">
+      <h5 class="q-mb-sm">Dagens rätter: </h5>
+        <!-- <h5>Maträtt 1: </h5><h5 v-html="decoder(this.datacollection[0].foodName)"/>
         <h5>Maträtt 2: </h5><h5 v-html="decoder(this.datacollection[1].foodName)"/>
         <h5>Maträtt 3: </h5><h5 v-html="decoder(this.datacollection[2].foodName)"/>
-        <h5>Maträtt 4: </h5><h5 v-html="decoder(this.datacollection[3].foodName)"/>
+        <h5>Maträtt 4: </h5><h5 v-html="decoder(this.datacollection[3].foodName)"/> -->
+        <h7>Maträtt 1: </h7><h7 v-html="decoder(this.datacollection[0].foodName)"/>
+        <h7>Maträtt 2: </h7><h7 v-html="decoder(this.datacollection[1].foodName)"/>
+        <h7>Maträtt 3: </h7><h7 v-html="decoder(this.datacollection[2].foodName)"/>
+        <h7>Maträtt 4: </h7><h7 v-html="decoder(this.datacollection[3].foodName)"/>
       </div>
     </div>
-    <div class="q-gutter-x-md">
+    <div class="bg-darkBackground q-gutter-x-md">
       <q-btn style="width: 200px; height: 64px; font-size: 20px" class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Admin Log Out" no-caps @click="logoutUserAdmin()"/>
       <q-btn style="width: 200px; height: 64px; font-size: 20px" class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home"/>
     </div>

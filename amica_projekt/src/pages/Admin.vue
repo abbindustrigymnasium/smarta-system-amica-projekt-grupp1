@@ -5,7 +5,7 @@
         <line-chart styles="width: 750px" class="bg-darkBackgroundLayer2" :chart-data="dataGraph"></line-chart>
       </div>
       <div id="legend" class="q-pl-xl">
-      <h3>Legend: </h3>
+      <h3>Dagens rätter: </h3>
         <h5>Maträtt 1: </h5><h5 v-html="decoder(this.datacollection[0].foodName)"/>
         <h5>Maträtt 2: </h5><h5 v-html="decoder(this.datacollection[1].foodName)"/>
         <h5>Maträtt 3: </h5><h5 v-html="decoder(this.datacollection[2].foodName)"/>
@@ -68,7 +68,7 @@ export default {
       return yyyy + '-' + mm + '-' + dd
     },
     getData () {
-      const label = ["Maträtt 1", "Maträtt 2", "Maträtt 3", "Maträtt 4"]
+      const label = ['Maträtt 1', 'Maträtt 2', 'Maträtt 3', 'Maträtt 4']
       const star = [[], [], [], [], []]
       for (const index in this.datacollection) {
         console.log(index)

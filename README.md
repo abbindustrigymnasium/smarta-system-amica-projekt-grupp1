@@ -23,3 +23,5 @@ https://amica-project1.web.app/#/
 ![Test Image 2](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/user%20-%20rate.PNG)
 
 ![Test Image 3](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/Admin_log_in.png)
+
+![Test Image 4](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/Admin.PNG)

@@ -1,39 +1,39 @@
 <template>
   <div style="overflow: hidden" class="bg-darkBackground window-height column">
-    <div v-if="$q.screen.lt.md" class="q-mt-lg row justify-center">
-      <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
+    <div v-if="$q.screen.lt.md" class="q-mt-none row justify-center">
+      <q-btn class="bg-darkBackgroundLayer" style="font-weight: 300; visibility: hidden" text-color="negative" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
     </div>
     <div class="row col-2 text-center justify-center">
-      <q-btn v-if="$q.screen.gt.sm" class="q-mt-xl bg-darkBackgroundLayer" style="right: 30px; top: 0px; position: absolute" text-color="teal-14" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
-      <h2 v-if="$q.screen.gt.sm" class="text-deep-purple-4 q-ma-none text-center q-py-xl justify-center">Vad åt du idag?</h2>
-      <h3 v-else class="text-deep-purple-4 q-ma-none text-center q-py-sm justify-center">Vad åt du idag?</h3>
+      <q-btn v-if="$q.screen.gt.sm" class="q-mt-lg bg-darkBackgroundLayer" style="right: 30px; top: 0px; position: absolute; color: #7DD4C2" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
+      <h2 v-if="$q.screen.gt.sm" class="q-ma-none text-center q-py-xl justify-center">Vad åt du idag?</h2>
+      <h3 v-else class="q-ma-none text-center q-py-sm justify-center" style="font-weight: 300" >Vad åt du idag?</h3>
     </div>
-    <div class="row col-5">
-      <q-btn v-for="(food, index) in foodList" :key="index" class="col-6 bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%; " size="16px" v-html="decoder(food.foodName)" @click=toggleDialog(1,food.foodName,food.id) />
+    <div class="row col-5 q-pb-lg q-gutter-sm justify-center">
+      <q-btn no-caps v-for="(food, index) in foodList" :key="index" class="col-6 bg-darkBackgroundLayer" style="width: 46%; height: 100%" v-html="decoder(food.foodName)" @click=toggleDialog(1,food.foodName,food.id) />
     </div>
     <q-dialog v-model="dialog1">
-      <q-card style="width: 100%; height: flex" class="bg-darkBackgroundLayer">
+      <q-card shadow-4 square style="width: 100%; height: flex;" class="bg-darkBackground">
         <q-card-section class="text-center items-center">
-          <h4 class="text-red-4" v-if="hasVoted || wrongInput">Betygsätt:</h4>
-          <h4 class="text-deep-purple-4" v-else>Betygsätt:</h4>
-          <h5 class="text-red-4" v-if="hasVoted || wrongInput" v-html="decoder(clicked)"></h5>
-          <h5 class="text-deep-purple-4" v-else v-html="decoder(clicked)"></h5>
+          <h4 style="color: #8C4C59; font-weight: 300" v-if="hasVoted || wrongInput">Betygsätt:</h4>
+          <h4 style="color: #C4808D; font-weight: 300" v-else>Betygsätt:</h4>
+          <h5 style="color: #8C4C59; font-weight: 300" v-if="hasVoted || wrongInput" v-html="decoder(clicked)"></h5>
+          <h5 style="color: #7DD4C2; font-weight: 300" v-else v-html="decoder(clicked)"></h5>
 
           <div class="col">
-            <q-rating v-if="hasVoted || wrongInput" v-model="ratingModel" size="3.5em" color="red-10" icon="star_border" icon-selected="star" @click=toggleDialog(2) />
-            <q-rating v-else v-model="ratingModel" size="3.5em" color="teal-14" icon="star_border" icon-selected="star" @click=toggleDialog(2) />
+            <q-rating v-if="hasVoted || wrongInput" v-model="ratingModel" size="3.5em" style="color: #8C4C59" icon="star_border" icon-selected="star" disabled @click=toggleDialog(2) />
+            <q-rating v-else v-model="ratingModel" size="3.5em" style="color: #8C4C59" icon="star_border" icon-selected="star" @click=toggleDialog(2) />
           </div>
 
           <div class="col q-mt-md">
-            <q-btn v-if="hasVoted || wrongInput" size="lg" class="col absolute-bottom bg-darkBackgroundLayer2" text-color="red-10" label="Bekräfta" type="submit" style="margin:auto; width:50%" @click="clickUpdate()"/>
-            <q-btn v-else size="lg" class="col absolute-bottom bg-darkBackgroundLayer2" text-color="teal-14" label="Bekräfta" type="submit" style="margin:auto; width:50%" @click="clickUpdate()"/>
+            <q-btn no-caps flat v-if="hasVoted || wrongInput" size="lg" class="col absolute-bottom bg-darkBackgroundLayer2" label="Bekräfta" type="submit" style="margin:auto; width:50%; color: #8C4C59; font-weight: 300" disabled @click="clickUpdate()"/>
+            <q-btn no-caps flat v-else size="lg" class="col absolute-bottom bg-darkBackgroundLayer2" label="Bekräfta" type="submit" style="margin:auto; width:50%; color: #7DD4C2; font-weight: 300" @click="clickUpdate()"/>
           </div>
 
-          <q-card-section v-if="!wrongInput && hasVoted" class="text-center q-pa-none" style="border-radius: 5px;">
-            <p class="text-red-10">Du har tyvärr redan betygsatt<br>Du kan betygsätta imorgon igen</p>
+          <q-card-section v-if="!wrongInput && hasVoted" class="text-center q-pa-none q-pt-md" style="border-radius: 5px;">
+            <p style="color: #8C4C59;">Du har tyvärr redan betygsatt<br>Du kan betygsätta imorgon igen</p>
           </q-card-section>
-          <q-card-section v-else-if="wrongInput" class="text-center q-pa-none" style="border-radius: 5px;">
-            <p class="text-red-10">Du kan tyvärr inte betygsätta 0 stjärnor<br>Testa att trycka på stjärnorna</p>
+          <q-card-section v-else-if="wrongInput" class="text-center q-pa-none q-pt-md" style="border-radius: 5px;">
+            <p style="color: #8C4C59;">Du kan tyvärr inte betygsätta 0 stjärnor<br>Testa att trycka på stjärnorna</p>
           </q-card-section>
         </q-card-section>
       </q-card>
@@ -203,21 +203,30 @@ export default {
 </script>
 
 <style>
+  h2, h3 {
+    color: #C4808D
+  }
   .bg-darkBackground {
-    background-color: #121212;
+    background-color: #121716;
   }
   .bg-darkBackgroundLayer {
-     background-color: #1F1B24;
+     background-color: #292224;
   }
   .q-btn {
     position: relative;
+    border-radius: 0px;
+    word-wrap: break-word;
   }
   .q-btn p {
-    position: absolute;
-    top: 43%;
-    width: 100%;
+    color: #7DD4C2;
+    font-size: 1.8em;
+    font-weight: 300;
+    margin: auto;
+    text-align: center;
+    line-height: 100%;
+    width: 85%;
   }
   .bg-darkBackgroundLayer2 {
-    background-color: #302A38
+    background-color: #292224
   }
 </style>

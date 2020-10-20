@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-darkBackground window-height window-width q-pa-lg justify-center items-center">
-    <div class="bg-darkBackgroundLayer q-gutter-md row">
-      <div>
-        <line-chart styles="width: 0.39*window-width px" class="bg-darkBackgroundLayer2" :chart-data="dataGraph"></line-chart>
+  <div class="bg-primary window-height window-width q-pa-lg justify-center items-center col-12">
+    <div class="bg-primary q-gutter-md row col-12">
+      <div class="col-5">
+        <line-chart styles="width: 100%;" class="bg-primary" :chart-data="dataGraph"></line-chart>
       </div>
-      <div id="legend" class="bg-darkBackgroundLayer q-pl-xl">
+      <div class="text-negative q-pl-xl">
       <h5 class="q-mb-sm">Dagens rätter: </h5>
         <!-- <h5>Maträtt 1: </h5><h5 v-html="decoder(this.datacollection[0].foodName)"/>
         <h5>Maträtt 2: </h5><h5 v-html="decoder(this.datacollection[1].foodName)"/>
@@ -16,9 +16,9 @@
         <h7>Maträtt 4: </h7><h7 v-html="decoder(this.datacollection[3].foodName)"/>
       </div>
     </div>
-    <div class="bg-darkBackground q-gutter-x-md">
-      <q-btn style="width: 200px; height: 64px; font-size: 20px" class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Admin Log Out" no-caps @click="logoutUserAdmin()"/>
-      <q-btn style="width: 200px; height: 64px; font-size: 20px" class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home"/>
+    <div class="bg-darkBackground q-gutter-x-md row justify-end">
+      <q-btn flat style="width: 200px; height: 64px; font-size: 20px; font-weight: 300" class="q-mt-xl bg-darkBackgroundLayer" text-color="negative" label="Admin Log Out" no-caps @click="logoutUserAdmin()"/>
+      <q-btn flat style="width: 200px; height: 64px; font-size: 20px; font-weight: 300" class="q-mt-xl bg-darkBackgroundLayer" text-color="negative" label="Go Home" no-caps @click="home"/>
     </div>
   </div>
 </template>
@@ -125,17 +125,17 @@ export default {
 </script>
 
 <style>
-  #legend {
-    color: #FFFFFF
+  .q-btn {
+    border-radius: 0px;
   }
   .bg-darkBackground {
-    background-color: #121212;
+    background-color: #121716;
   }
-  .bg-darkBackgroundLayer{
-     background-color: #1F1B24;
+  .bg-darkBackgroundLayer {
+     background-color: #292224;
   }
   .bg-darkBackgroundLayer2 {
-    background-color: #302A38
+    background-color: #292224
   }
 
 </style>

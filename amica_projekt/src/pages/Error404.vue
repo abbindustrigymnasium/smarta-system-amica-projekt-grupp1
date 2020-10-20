@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-darkBackground window-height window-width row q-pa-md justify-center items-center">
-    <div class="bg-darkBackgroundLayer" style="padding:1%; border-radius: 25px;">
-      <div style="font-size: 30vh" class="text-red-10">
+  <div class="bg-primary window-height window-width row q-pa-md justify-center items-center">
+    <div class="bg-primary" style="padding:1%; border-radius: 25px;">
+      <div style="font-size: 30vh" class="text-positive">
         404
       </div>
 
@@ -9,7 +9,7 @@
         Oops. Nothing here...
       </div>
 
-      <q-btn class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home" style="border-radius: 25px; border: 1px solid;"/>
+      <q-btn class="q-mt-xl bg-secondary" text-color="negative" flat label="Go Home" no-caps @click="home" style="border-radius: 0px"/>
 
     </div>
   </div>

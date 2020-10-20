@@ -1,41 +1,38 @@
 <template>
-  <div class="bg-darkBackground window-height window-width row q-pa-md justify-center items-center">
-    <div class="column">
+  <div class="bg-darkBackground window-height window-width row justify-center items-center">
+    <div class="column col-4" style="min-width: 350px">
       <div class="row">
-        <q-card square bordered class="q-pa-lg bg-darkBackgroundLayer">
-          <q-card-section>
+        <h2 class="q-pl-md text-accent">Admin Log In</h2>
+        <q-card square flat class="bg-primary col-12">
+          <q-card-section class="q-gutter-sm">
             <q-form>
-              <q-input v-if="loginError" color="red-4" label-color="red-4" dark outlined v-model="email" type="email" label="Email"/>
-              <q-input v-else color="teal-14" label-color="teal-14" dark outlined v-model="email" type="email" label="Email"/>
+              <q-input filled square v-if="loginError" color="positive" label-color="accent" style="font-size: 18px" dark v-model="email" type="email" label="Email"/>
+              <q-input filled square v-else color="positive" label-color="accent" style="font-size: 18px" dark v-model="email" type="email" label="Email"/>
             </q-form>
             <q-form>
-              <q-input v-if="loginError" color="red-4" label-color="red-4" dark outlined v-model="password" type="password" label="Password"/>
-              <q-input v-else color="teal-14" label-color="teal-14" dark outlined v-model="password" type="password" label="Password"/>
+              <q-input filled square v-if="loginError" color="positive" label-color="accent" style="font-size: 18px" dark v-model="password" type="password" label="Password"/>
+              <q-input filled square v-else color="positive" label-color="accent" style="font-size: 18px" dark v-model="password" type="password" label="Password"/>
             </q-form>
           </q-card-section>
-          <q-card-actions v-if="loginError" class="q-px-md">
-            <q-btn size="lg" class="full-width bg-red-4" label="Login" @click="login"/>
-          </q-card-actions>
-          <q-card-actions v-else class="q-px-md">
-            <q-btn size="lg" class="full-width bg-deep-purple-4" label="Login" @click="login"/>
-          </q-card-actions>
           <!-- <q-card-actions class="q-px-md">
             <q-btn size="sm" class="full-width bg-deep-purple-4" label="devRegister" @click="devRegister"/>
           </q-card-actions> -->
-          <q-card-section v-if="loginError" class="bg-darkBackgroundLayer2 text-center q-pa-none" style="border-radius: 5px;">
-            <p class="text-red-10">LoginError<br>Wrong email/password</p>
+          <q-card-section v-if="loginError" class="q-pl-md q-pa-none" text-color="negative" style="border-radius: 5px;">
+            <p class="text-positive" style="font-weight: 300">Failed to log in. Incorrect account information.</p>
           </q-card-section>
-          <q-card-section v-else-if="!loading" class="bg-darkBackgroundLayer2 text-center q-pa-none" style="border-radius: 5px;">
-            <p class="text-teal-14">Admin login<br>For amica personnel only</p>
+          <q-card-section v-else-if="!loading" class="q-pl-md q-pa-none" text-color="negative" style="border-radius: 5px;">
+            <p class="text-negative" style="font-weight: 300">For amica personnel only.</p>
           </q-card-section>
-          <q-card-section v-else class="bg-darkBackgroundLayer2 text-center q-pa-none" style="border-radius: 5px;">
-            <p class="text-teal-14">Hold on<br>Trying to log you in</p>
+          <q-card-section v-else class="q-pl-md q-pa-none" text-color="negative" style="border-radius: 5px;">
+            <p class="text-negative" style="font-weight: 300">Hold on. Trying to log in.</p>
           </q-card-section>
         </q-card>
+        <div class="q-pt-md q-pl-md q-gutter-md row justify-between col-12">
+          <q-btn v-if="loginError" class="bg-darkBackgroundLayer col-4" text-color="negative" style="font-weight: 300; font-size: 1rem" label="Log In" flat no-caps @click="login"/>
+          <q-btn v-else class="bg-darkBackgroundLayer col-4" text-color="negative" label="Log In" style="font-weight: 300; font-size: 1rem" flat no-caps @click="login"/>
+          <q-btn class="bg-darkBackgroundLayer col-4" text-color="negative" label="Go Home" style="font-weight: 300; font-size: 1rem" flat no-caps @click="home"/>
+        </div>
       </div>
-
-      <q-btn class="q-mt-xl bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Go Home" no-caps @click="home"/>
-
     </div>
   </div>
 </template>
@@ -91,12 +88,13 @@ export default {
 
 <style>
   .bg-darkBackground {
-    background-color: #121212;
+    background-color: #121716;
   }
   .bg-darkBackgroundLayer {
-     background-color: #1F1B24;
+     background-color: #292224;
   }
   .bg-darkBackgroundLayer2 {
-    background-color: #302A38
+    background-color: #292224
   }
+
 </style>

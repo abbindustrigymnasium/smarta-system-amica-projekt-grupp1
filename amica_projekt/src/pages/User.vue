@@ -129,7 +129,7 @@ export default {
       return textArea.value
     },
     clickUpdate () {
-      if (document.cookie !== this.date) {
+      if (window.localStorage.getItem('date') !== this.date) {
         var star = this.ratingVal
         console.log(star)
         let update
@@ -157,8 +157,8 @@ export default {
           console.log(this.currentFoodHover)
           db.collection('Dagens_Maträtter').doc('Amica').collection(this.getDate()).doc(this.currentFoodHover).update(update)
           this.dialog1 = !this.dialog1
-          document.cookie = this.date //ANVÄND LOCAL STORAGE IST FÖR COOKIE 123
-          this
+          localStorage.date = this.date;
+          window.localStorage.setItem("date", this.date.text());
         }
       } else {
         this.wrongInput = false

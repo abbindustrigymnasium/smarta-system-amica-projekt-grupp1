@@ -4,8 +4,9 @@
       <q-btn class="bg-darkBackgroundLayer" text-color="teal-14" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
     </div>
     <div class="row col-2 text-center justify-center">
-      <q-btn v-if="$q.screen.gt.sm" class="q-mt-xl bg-darkBackgroundLayer" style="right: 30px; top: 10px; position: absolute" text-color="teal-14" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
-      <h2 class="text-deep-purple-4 q-ma-none text-center q-py-xl justify-center">Vad åt du idag?</h2>
+      <q-btn v-if="$q.screen.gt.sm" class="q-mt-xl bg-darkBackgroundLayer" style="right: 30px; top: 0px; position: absolute" text-color="teal-14" unelevated label="Admin Login" no-caps @click="routeAdmin"/>
+      <h2 v-if="$q.screen.gt.sm" class="text-deep-purple-4 q-ma-none text-center q-py-xl justify-center">Vad åt du idag?</h2>
+      <h3 v-else class="text-deep-purple-4 q-ma-none text-center q-py-sm justify-center">Vad åt du idag?</h3>
     </div>
     <div class="row col-5">
       <q-btn v-for="(food, index) in foodList" :key="index" class="col-6 bg-darkBackgroundLayer" text-color="teal-14" style="width: 50%; height: 100%; " size="16px" v-html="decoder(food.foodName)" @click=toggleDialog(1,food.foodName,food.id) />
@@ -156,7 +157,7 @@ export default {
           console.log(this.currentFoodHover)
           db.collection('Dagens_Maträtter').doc('Amica').collection(this.getDate()).doc(this.currentFoodHover).update(update)
           this.dialog1 = !this.dialog1
-          document.cookie = this.date
+          document.cookie = this.date //ANVÄND LOCAL STORAGE IST FÖR COOKIE 123
           this
         }
       } else {

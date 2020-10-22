@@ -18,10 +18,10 @@ https://amica-project1.web.app/#/
   3. Admin Log in
   4. Admin
 
-![Test Image 1](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/User.PNG)
+![Test Image 1](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/user.PNG)
 
 ![Test Image 2](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/Rating.PNG)
 
-![Test Image 3](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/AdminLogIn.png)
+![Test Image 3](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/AdminLogIn.PNG)
 
 ![Test Image 4](https://github.com/abbindustrigymnasium/smarta-system-amica-projekt-grupp1/blob/master/photos/Admin.PNG)

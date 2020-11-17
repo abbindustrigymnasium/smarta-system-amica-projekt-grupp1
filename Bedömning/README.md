@@ -10,6 +10,7 @@ Programmeringskoden ser helt okej ut. Finns lite kommenterad kod kvar och inte n
 
 ## Adminsidan
 Bra att det fungerar att se statistik på dagens rätter. Hade varit trevligt om man hade kunnat i Admin sidan se tidigare datum också. På små skärmar blir grafen lite väl liten.
+![alt text](https://trello-attachments.s3.amazonaws.com/5fb2e95091af1b6bb95a3801/500x845/948612b6759a89072480b0329f02ab0e/image.png)
 
 ## Firestore modellen
 Firestore modellen såg bra ut i struktur.

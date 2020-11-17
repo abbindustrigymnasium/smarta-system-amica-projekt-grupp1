@@ -5,6 +5,8 @@ Klientapplikationen ser generellt bra ut. Bra färgsättning och fungerar.
 Eftersom den ska användas via telefonen så saknar jag att den inte är responsiv, dvs ser inte bra ut på telefon texten blir klämd och rutorna trycks ihop istället för komma under varandra.
 Hade också önskat att man får feedback när man lämnat betyg på rätten som en toast "Tack för din feedback!".
 
+![alt text](https://trello-attachments.s3.amazonaws.com/5fb2e95091af1b6bb95a3801/273x926/844468033c5cf191303603e1fc8db92f/image.png)
+
 ## Programmeringskoden
 Programmeringskoden ser helt okej ut. Finns lite kommenterad kod kvar och inte några riktiga kommentarer. Hade önskat sett att User sidan brytits ner mer i komponenter, tex hade korten för rätterna varit en egen komponent. Nu har ni allt i pages.
 
